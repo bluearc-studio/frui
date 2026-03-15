@@ -11,10 +11,10 @@ export async function fetchNui<T = unknown>(
   const res = await fetch(`https://${GetParentResourceName()}/${eventName}`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json; charset=UTF-8",
     },
     body: JSON.stringify(data ?? {}),
   });
 
-  return res.json();
+  return res.json() as Promise<T>;
 }

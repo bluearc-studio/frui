@@ -1,4 +1,4 @@
 export * from "./fetchNui";
-export * from "./useNuiEvent";
-export * from "./useKeyBind";
+export * from "./hooks/useNuiEvent";
+export * from "./hooks/useKeyBind";
 export * from "./isEnvBrowser";

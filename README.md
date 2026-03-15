@@ -10,7 +10,7 @@ npm i @bluearc/frui
 
 ```tsx
 import { useState } from "react";
-import { useNuiEvent, fetchNui, useKeybind } from "@bluearc/frui";
+import { useNuiEvent, fetchNui, useKeyBind } from "@bluearc/frui";
 
 export default function App() {
   const [visible, setVisible] = useState(false);
@@ -19,7 +19,7 @@ export default function App() {
     setVisible(data.visible);
   });
 
-  useKeybind("Escape", () => {
+  useKeyBind("Escape", () => {
     fetchNui("close");
   });
 
