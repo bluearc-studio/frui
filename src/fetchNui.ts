@@ -1,11 +1,12 @@
 import { isEnvBrowser } from "./isEnvBrowser";
+import { MockTriggerNUICallback } from "./mock";
 
 export async function fetchNui<T = unknown>(
   eventName: string,
   data?: any,
 ): Promise<T> {
   if (isEnvBrowser()) {
-    return {} as T;
+    return MockTriggerNUICallback(eventName, data) as Promise<T>;
   }
 
   const res = await fetch(`https://${GetParentResourceName()}/${eventName}`, {

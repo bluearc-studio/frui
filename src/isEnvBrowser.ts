@@ -1,3 +1,3 @@
 export const isEnvBrowser = () => {
-  return !(window as any).invokeNative;
+  return typeof window !== "undefined" && !(window as any).invokeNative;
 };
