@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export function useKeyBind(key: string, callback: () => void) {
+export function useKeyBind(key: string | string[], callback: () => void) {
   const callbackRef = useRef(callback);
 
   useEffect(() => {
@@ -8,10 +8,12 @@ export function useKeyBind(key: string, callback: () => void) {
   }, [callback]);
 
   useEffect(() => {
-    const targetKey = key.toLowerCase();
+    const targetKeys = (Array.isArray(key) ? key : [key]).map((k) =>
+      k.toLowerCase(),
+    );
 
     const listener = (e: KeyboardEvent) => {
-      if (e.key.toLowerCase() === targetKey) {
+      if (targetKeys.includes(e.key.toLowerCase())) {
         callbackRef.current();
       }
     };
