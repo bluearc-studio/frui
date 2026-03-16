@@ -39,7 +39,9 @@ export default function App() {
 
 ## Utilities
 
-### fetchNui
+### Function
+
+**fetchNui**
 
 ```tsx
 import { fetchNui } from "@bluearc/frui";
@@ -49,7 +51,7 @@ await fetchNui("ping", {
 });
 ```
 
-### useNuiEvent
+**useNuiEvent**
 
 ```tsx
 import { useNuiEvent } from "@bluearc/frui";
@@ -59,7 +61,7 @@ useNuiEvent("sendData", (data) => {
 });
 ```
 
-### useKeyBind
+**useKeyBind**
 
 ```tsx
 import { useKeyBind } from "@bluearc/frui";
@@ -69,7 +71,28 @@ useKeyBind("Enter", () => {
 });
 ```
 
-### MockRegisterNUICallback
+**useVisibility**
+
+```tsx
+import { useVisibility } from "@bluearc/frui";
+
+export default function App() {
+  const { isVisible, closeUI } = useVisibility({
+    defaultVisible: false,
+    closeKey: "Escape",
+    openEventName: "openUI",
+    closeEventName: "closeUI",
+  });
+
+  if (!isVisible) return null;
+
+  return <button onClick={closeUI}>Close</button>;
+}
+```
+
+### Mock Function
+
+**MockRegisterNUICallback**
 
 ```tsx
 import { MockRegisterNUICallback } from "@bluearc/frui";
@@ -79,7 +102,7 @@ MockRegisterNUICallback("ping", (data) => {
 });
 ```
 
-### MockSendNUIMessage
+**MockSendNUIMessage**
 
 ```tsx
 import { MockSendNUIMessage } from "@bluearc/frui";
