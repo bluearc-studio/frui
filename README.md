@@ -76,18 +76,20 @@ useKeyBind("Enter", () => {
 ```tsx
 import { useVisibility } from "@bluearc/frui";
 
-export default function App() {
-  const { isVisible, closeUI } = useVisibility({
-    defaultVisible: false,
-    closeKey: "Escape",
-    openEventName: "openUI",
-    closeEventName: "closeUI",
-  });
+const { isVisible, closeUI } = useVisibility({
+  defaultVisible: false,
+  closeKey: "Escape",
+  openEventName: "openUI",
+  closeEventName: "closeUI",
+});
+```
 
-  if (!isVisible) return null;
+**useNuiQuery**
 
-  return <button onClick={closeUI}>Close</button>;
-}
+```tsx
+import { useNuiQuery } from "@bluearc/frui";
+
+const { data, isLoading, error, refetch } = useNuiQuery("getData", {});
 ```
 
 ### Mock Function
