@@ -89,7 +89,7 @@ const { isVisible, closeUI } = useVisibility({
 ```tsx
 import { useNuiQuery } from "@bluearc/frui";
 
-const { data, isLoading, error, refetch } = useNuiQuery("getData", {});
+const { data, isLoading, error, refetch } = useNuiQuery("getData");
 ```
 
 ### Mock Function

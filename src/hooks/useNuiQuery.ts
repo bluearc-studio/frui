@@ -1,21 +1,22 @@
-// hooks/useNuiQuery.ts
 import { useState, useEffect, useCallback } from "react";
 import { fetchNui } from "../fetchNui";
 
-interface NuiQueryOptions<T> {
+interface NuiQueryOptions {
   enabled?: boolean;
 }
 
 export function useNuiQuery<T>(
   action: string,
   payload?: any,
-  options: NuiQueryOptions<T> = {},
+  options: NuiQueryOptions = {},
 ) {
   const { enabled = true } = options;
 
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(enabled);
   const [error, setError] = useState<string | null>(null);
+
+  const serializedPayload = payload ? JSON.stringify(payload) : null;
 
   const refetch = useCallback(async () => {
     setIsLoading(true);
@@ -28,7 +29,7 @@ export function useNuiQuery<T>(
     } finally {
       setIsLoading(false);
     }
-  }, [action, payload]);
+  }, [action, serializedPayload]);
 
   useEffect(() => {
     if (enabled) {
