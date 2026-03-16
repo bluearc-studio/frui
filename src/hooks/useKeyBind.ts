@@ -1,10 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export function useKeyBind(key: string, callback: () => void) {
+  const callbackRef = useRef(callback);
+
   useEffect(() => {
+    callbackRef.current = callback;
+  }, [callback]);
+
+  useEffect(() => {
+    const targetKey = key.toLowerCase();
+
     const listener = (e: KeyboardEvent) => {
-      if (e.key.toLowerCase() === key.toLowerCase()) {
-        callback();
+      if (e.key.toLowerCase() === targetKey) {
+        callbackRef.current();
       }
     };
 
@@ -13,5 +21,5 @@ export function useKeyBind(key: string, callback: () => void) {
     return () => {
       window.removeEventListener("keydown", listener);
     };
-  }, [key, callback]);
+  }, [key]);
 }
