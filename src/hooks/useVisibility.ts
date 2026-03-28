@@ -6,28 +6,36 @@ import { fetchNui } from "../fetchNui";
 interface VisibilityOptions {
   defaultVisible?: boolean;
   closeKey?: string | string[];
-  openEventName?: string;
+  openEventName: string;
   closeEventName?: string;
+  closeTriggerEventName: string;
 }
 
-export function useVisibility(options: VisibilityOptions = {}) {
+export function useVisibility(options: VisibilityOptions) {
   const {
     defaultVisible = false,
     closeKey = "Escape",
-    openEventName = "openUI",
-    closeEventName = "closeUI",
+    openEventName,
+    closeEventName,
+    closeTriggerEventName,
   } = options;
 
   const [isVisible, setIsVisible] = useState(defaultVisible);
 
-  useNuiEvent<boolean>(openEventName, (visible) => {
-    setIsVisible(visible);
+  useNuiEvent(openEventName, () => {
+    setIsVisible(true);
+  });
+
+  useNuiEvent(closeEventName ?? "__noop__", () => {
+    setIsVisible(false);
   });
 
   const closeUI = useCallback(() => {
-    setIsVisible(false);
-    fetchNui(closeEventName, {});
-  }, [closeEventName]);
+    fetchNui(closeTriggerEventName, {});
+    if (!closeEventName) {
+      setIsVisible(false);
+    }
+  }, [closeTriggerEventName, closeEventName]);
 
   useKeyBind(closeKey as string, () => {
     if (isVisible) {
